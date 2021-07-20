@@ -2,7 +2,7 @@ const discord = require("discord.js");
 const client = new discord.Client();
 const fs = require('fs');
 const prefix = "m!"
-const config = require('./config.json')
+//const config = require('./config.json')
 const ServerID = `819284631601414156`
 client.commands = new discord.Collection();
 const commandFiles = fs.readdirSync('./Commands/').filter(file => file.endsWith('.js'))
@@ -296,4 +296,4 @@ client.on("message", async message => {
 })
 
 
-client.login(config.token)
+client.login(process.env.DJS_TOKEN)
