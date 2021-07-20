@@ -1,0 +1,19 @@
+{
+  "name": "mitzobot",
+  "version": "1.0.0",
+  "description": "miencraft discord bot",
+  "main": "Main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TrapntDusty/mitzobot.git"
+  },
+  "author": "VoicelessDusty",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TrapntDusty/mitzobot/issues"
+  },
+  "homepage": "https://github.com/TrapntDusty/mitzobot#readme"
+}
