@@ -4,7 +4,7 @@ module.exports = {
     name: 'ApproveSugerencias',
     description: 'Aprobar una sugerencia',
     async execute(client,message,args,discord){
-        if(!message.member.roles.cache.has(`824186297513541652`)) return; // rol admin
+        if(!message.member.roles.cache.has(`ROL ID`)) return; // rol admin
 
         const messageID = args[0];
         const acceptQuery = args.slice(1).join(" ");
@@ -13,7 +13,7 @@ module.exports = {
         if(!acceptQuery) return message.reply("porfavor especifica la razon de la aceptacion")
 
         try{
-            const suggestionChannel = message.guild.channels.cache.get(`828095608316362804`) //canal sugerencias
+            const suggestionChannel = message.guild.channels.cache.get(`CHANNEL ID`) //canal sugerencias
             const suggestedEmbed = await suggestionChannel.messages.fetch(messageID); 
             const data = suggestedEmbed.embeds[0];
             const acceptedEmbed = new MessageEmbed()
