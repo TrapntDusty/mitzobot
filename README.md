@@ -6,7 +6,7 @@
   
 ## A Minecraft - Discord Management Bot
 
-### Mitzo Bot its a spanish project for a Server that replicated the Autonomous University of Nuevo Leon in Mexico
+### Mitzo Bot its a spanish project for a Server that replicated the Autonomous University of Nuevo Leon Mexico in Minecraft
 
 <p align="center">
     This is a Discord bot that has
