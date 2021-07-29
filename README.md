@@ -26,4 +26,4 @@ The program was made thanks to the library of Mineflayer and Discord.js
 the  code need installed [node](https://nodejs.org/en/download/) , [discord.js](https://www.npmjs.com/package/discord.js?source=post_page-----7b5fe27cb6fa----------------------), [mineflayer](https://www.npmjs.com/package/mineflayer)
 
 If you're interested in the progress of Mitzo-Bot but dont understand full spanish you can contact me on Discord - (Dusty#7819)
-and if you want to see the ideas for upcoming stuff or bugs/problems you can visit the [trello](https://trello.com/b/hT79dns2/mc-bot)
+and if you want to see the ideas for upcoming stuff or bugs/problems you can visit the [trello board](https://trello.com/b/hT79dns2/mc-bot)
