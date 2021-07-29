@@ -26,7 +26,7 @@ module.exports = {
         //let embed1 = await message.channel.send(embed)
         message.delete()
 
-        client.channels.cache.get(`828095608316362804`).send(embed).then(embedMessage => { //canal sugerencia manda embed
+        client.channels.cache.get(`CHANNEL ID`).send(embed).then(embedMessage => { //canal sugerencia manda embed
             embedMessage.react('⬆️');
             embedMessage.react('⬇️');
         });
