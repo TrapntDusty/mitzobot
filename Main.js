@@ -1,5 +1,5 @@
 const discord = require("discord.js");
-const client = new discord.Client();
+const client = new discord.Client({ intents: ["GUILD_PRESENCES", "GUILD_MEMBERS"] })
 const fs = require('fs');
 const prefix = "m!"
 //const config = require('./config.json')
@@ -11,34 +11,26 @@ const commandFiles = fs.readdirSync('./Commands/').filter(file => file.endsWith(
 const mineflayer = require('mineflayer')
 
 const bot = mineflayer.createBot({
-    host: "172.96.160.45", //host
-    port: 25606, //port 
+    host: "163.123.206.34", //host
+    port: 25500, //port 
     username: "MitzoBot"
   })
 
-  function createBot () {
+function createBot(){
     const bot = mineflayer.createBot({
-        host: "172.96.160.45", //host
-        port: 25606, //port 
+        host: "163.123.206.34", //host
+        port: 25500, //port 
         username: "MitzoBot"
+      })
+
+    bot.once('spawn', () => {
+        bot.chat('/login MitzoBot123')
     })
+}
+
     bot.once('spawn', () => {
         bot.chat('/login MitzoBot123')
-      })
-    
-  
-    bot.on('error', (err) => console.log(err))
-    bot.on('end', createBot)
-    bot.once('spawn', () => {
-        bot.chat('/login MitzoBot123')
-      })
-
-  }
-
-  createBot()
-  bot.once('spawn', () => {
-    bot.chat('/login MitzoBot123')
-  })
+    })
 
   client.on('message', message => {
     // Only handle messages in specified channel
@@ -47,6 +39,10 @@ const bot = mineflayer.createBot({
     if (message.author.id == client.user.id) return
     bot.chat(`/msg ${message.content}`)
   })
+
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
   
   // Redirect in-game messages to Discord channel
   bot.on('whisper', (username, message,rawMessage) => {
@@ -74,7 +70,7 @@ for(const file of commandFiles) {
 
 client.on("ready", () => {
     console.log("Bot online")
-    client.user.setActivity("Mandame mensaje Privado para contactar asistencia")
+    client.user.setActivity("Mándame mensaje privado para contactar asistencia")
 })
 
 
@@ -95,7 +91,7 @@ client.on("channelDelete", (channel) => {
 
 
 client.on("message", async message => {
-    if (message.author.bot) return;
+    //if (message.author.bot) return;
 
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
     let command = args.shift().toLowerCase();
@@ -130,7 +126,7 @@ client.on("message", async message => {
 
             return message.channel.send("Instalacion Completa ✅")
 //! SUGERENCIAS                                           //////////////                                                  ///////////////////////
-        } else if(command == "sugerencia"){ // aqui empieza las sugerencias , donde se va a otra carpeta
+        } else if(command == "sugerencia"){ // aqui empieza las sugerencias 
             if (!message.content.startsWith(prefix)) return;
             client.commands.get('sugerencias').execute(client,message,args,discord)
         } else if(command == "asugerencia"){ // aqui aprueba la sugerencia
@@ -140,6 +136,32 @@ client.on("message", async message => {
             if (!message.content.startsWith(prefix)) return;
             client.commands.get('DenySugerencias').execute(client,message,args,discord)
 //!FIN DE SUGERENCIAS                                    //////////////                                                   ///////////////////////
+// TODO: BOTON DE MANTENIMIENTO                                              /////////////////////////////////////
+        }else if (command == "on"){
+            if (!message.content.startsWith(prefix)) return; //prefijo
+            if(!message.member.roles.cache.has(`824186297513541652`)) return; //rol admin
+            client.channels.cache.get("825941198417035274").setName("🟡IP: uanl.minecraft.casa");  //cambiando el nombre al canal principal
+            bot.chat("/whitelist on") // el bot activa la whitelist 
+            const ManteChannel = client.channels.cache.get("824201028160323584").send("<:MineUanl:824196564862894080>  **𝐒𝐄𝐑𝐕𝐈𝐃𝐎𝐑 𝐄𝐍 𝐌𝐀𝐍𝐓𝐄𝐍𝐈𝐌𝐈𝐄𝐍𝐓𝐎** <:MineUanl:824196564862894080>") //Aqui el bot mandara el mensaje de mantenimiento activado
+            //! EL ID ES 824201028160323584
+            const Channel = client.channels.cache.get("867134933017690164")
+            let RoleMante = message.guild.roles.cache.get("824188004054073345");
+            Channel.updateOverwrite(RoleMante, {VIEW_CHANNEL: false});
+
+        }else if (command == "off"){
+            if (!message.content.startsWith(prefix)) return; //prefjo
+            if(!message.member.roles.cache.has(`824186297513541652`)) return; //rol admin
+            client.channels.cache.get("825941198417035274").setName("🟢IP: uanl.minecraft.casa");  //cambiando el nombre al canal principal
+            bot.chat("/whitelist off") // el bot desactiva la whitelist
+            const ManteChannel = client.channels.cache.get("824201028160323584").send("<:MineUanl:824196564862894080>  **SERVIDOR EN LINEA** <:MineUanl:824196564862894080> ✅") //Aqui el bot mandara el mensaje de mantenimiento activado
+            const Channel = client.channels.cache.get("867134933017690164")
+            let RoleMante = message.guild.roles.cache.get("824188004054073345");
+            Channel.updateOverwrite(RoleMante, {VIEW_CHANNEL: true});
+
+        }else if(command == "mitzo"){
+            if (!message.content.startsWith(prefix)) return; //prefjo
+            sleep(30000).then(() => { createBot() })
+// todo : FIN BOTON DE MANTENIMIENTO                                         /////////////////////////////////////
         }else if (command == "cerrar") {
             if (!message.content.startsWith(prefix)) return;
             if (message.channel.parentID == message.guild.channels.cache.find((x) => x.name == "MITZO-MAIL").id) {
@@ -155,7 +177,7 @@ client.on("message", async message => {
                     .setAuthor("Asistencia Cerrada", client.user.displayAvatarURL())
                     .setColor("RED")
                     .setFooter("Asistencia Cerrada por " + message.author.username)
-                if (args[0]) yembed.setDescription(`Razon: ${args.join(" ")}`)
+                if (args[0]) yembed.setDescription(`Razón: ${args.join(" ")}`)
 
                 return person.send(yembed)
 
@@ -254,7 +276,7 @@ client.on("message", async message => {
         if (!category) return;
         const main = guild.channels.cache.find((x) => x.name == message.author.id)
 
-
+        if(main == '827306561479114803') return;
         if (!main) {
             let mx = await guild.channels.create(message.author.id, {
                 type: "text",
@@ -295,5 +317,4 @@ client.on("message", async message => {
 
 })
 
-
-client.login(process.env.DJS_TOKEN)
+client.login("ODI3MzA2NTYxNDc5MTE0ODAz.YGZHRg.sUTeSuPKCCc7amiFoB1Bql9nI3Q")

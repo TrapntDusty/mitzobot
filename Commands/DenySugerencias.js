@@ -5,6 +5,7 @@ module.exports = {
     description: 'Denegar una sugerencia',
     async execute(client,message,args,discord){
         if(!message.member.roles.cache.has(`824186297513541652`)) return; //rol admin
+        if(!message.guild.channels.cache.get(`828095608316362804`)) return; // solo mensajes en canal sugerencias
 
         const messageID = args[0];
         const denyQuery = args.slice(1).join(" ");
@@ -21,7 +22,7 @@ module.exports = {
             .setTitle("Sugerencia : Denegada")
             .setDescription(data.description)
             .setColor("#b81f31")
-            .addField("Razon de Denegacion : ", denyQuery)
+            .addField("Razón de Denegación : ", denyQuery)
             .setFooter("para hacer sugerencias usa m!sugerencia")
 
         suggestedEmbed.edit(deniedEmbed)   
